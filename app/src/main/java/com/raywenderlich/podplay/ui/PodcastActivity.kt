@@ -29,14 +29,14 @@ class PodcastActivity : AppCompatActivity(), PodcastListAdapterListener {
 
     private val searchViewModel by viewModels<SearchViewModel>()
     private lateinit var podcastListAdapter: PodcastListAdapter
-    private lateinit var databinding: ActivityPodcastBinding
+    private lateinit var binding: ActivityPodcastBinding
 
     private val TAG = javaClass.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        databinding = ActivityPodcastBinding.inflate(layoutInflater)
-        setContentView(databinding.root)
+        binding = ActivityPodcastBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setupToolbar()
         setupViewModels()
         updateControls()
@@ -81,7 +81,7 @@ class PodcastActivity : AppCompatActivity(), PodcastListAdapterListener {
     }
 
     private fun setupToolbar() {
-        setSupportActionBar(databinding.toolbar)
+        setSupportActionBar(binding.toolbar)
     }
 
     private fun setupViewModels() {
@@ -90,17 +90,17 @@ class PodcastActivity : AppCompatActivity(), PodcastListAdapterListener {
     }
 
     private fun updateControls() {
-        databinding.podcastRecyclerView.setHasFixedSize(true)
+        binding.podcastRecyclerView.setHasFixedSize(true)
 
         val layoutManager = LinearLayoutManager(this)
-        databinding.podcastRecyclerView.layoutManager = layoutManager
+        binding.podcastRecyclerView.layoutManager = layoutManager
 
         val dividerItemDecoration = DividerItemDecoration(
-            databinding.podcastRecyclerView.context, layoutManager.orientation)
-        databinding.podcastRecyclerView.addItemDecoration(dividerItemDecoration)
+           binding.podcastRecyclerView.context, layoutManager.orientation)
+       binding.podcastRecyclerView.addItemDecoration(dividerItemDecoration)
 
         podcastListAdapter = PodcastListAdapter(null, this, this)
-        databinding.podcastRecyclerView.adapter = podcastListAdapter
+        binding.podcastRecyclerView.adapter = podcastListAdapter
     }
 
     override fun onShowDetails(podcastSummaryViewData: PodcastSummaryViewData) {
@@ -108,10 +108,10 @@ class PodcastActivity : AppCompatActivity(), PodcastListAdapterListener {
     }
 
     private fun showProgressBar() {
-        databinding.progressBar.visibility = View.VISIBLE
+       binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun hideProgressBar() {
-        databinding.progressBar.visibility = View.INVISIBLE
+        binding.progressBar.visibility = View.INVISIBLE
     }
 }
