@@ -21,6 +21,7 @@ import com.raywenderlich.podplay.databinding.ActivityPodcastBinding
 import com.raywenderlich.podplay.repository.ItunesRepo
 import com.raywenderlich.podplay.repository.PodcastRepo
 import com.raywenderlich.podplay.service.ItunesService
+import com.raywenderlich.podplay.service.RssFeedService
 import com.raywenderlich.podplay.viewmodel.PodcastViewModel
 import com.raywenderlich.podplay.viewmodel.SearchViewModel
 import kotlinx.coroutines.Dispatchers
@@ -99,9 +100,11 @@ class PodcastActivity : AppCompatActivity(), PodcastListAdapterListener {
     }
 
     private fun setupViewModels() {
+
+
         val service = ItunesService.instance
         searchViewModel.iTunesRepo = ItunesRepo(service)
-        podcastViewModel.podcastRepo = PodcastRepo()
+        podcastViewModel.podcastRepo = PodcastRepo(RssFeedService.instance)
     }
 
     private fun updateControls() {
@@ -120,21 +123,9 @@ class PodcastActivity : AppCompatActivity(), PodcastListAdapterListener {
 
     override fun onShowDetails(podcastSummaryViewData:
                                SearchViewModel.PodcastSummaryViewData) {
-        // 1
-        val feedUrl = podcastSummaryViewData.feedUrl ?: return
-        // 2
-        showProgressBar()
-        // 3
-        val podcast =
+        podcastSummaryViewData.feedUrl?.let {
+            showProgressBar()
             podcastViewModel.getPodcast(podcastSummaryViewData)
-        // 4
-        hideProgressBar()
-        if (podcast != null) {
-            // 5
-            showDetailsFragment()
-        } else {
-            // 6
-            showError("Error loading feed $feedUrl")
         }
     }
 
@@ -187,5 +178,14 @@ class PodcastActivity : AppCompatActivity(), PodcastListAdapterListener {
                 binding.podcastRecyclerView.visibility = View.VISIBLE
             }
         }
+    }
+    private fun createSubscription() {
+        podcastViewModel.podcastLiveData.observe(this, {
+            hideProgressBar()
+            if (it != null) {
+                showDetailsFragment()
+            } else {
+                showError("Error loading feed")}
+        })
     }
 }
