@@ -45,6 +45,7 @@ class PodcastActivity : AppCompatActivity(), PodcastListAdapterListener {
         setupViewModels()
         updateControls()
         handleIntent(intent)
+        addBackStackListener()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -179,5 +180,12 @@ class PodcastActivity : AppCompatActivity(), PodcastListAdapterListener {
             .setPositiveButton(getString(R.string.ok_button), null)
             .create()
             .show()
+    }
+    private fun addBackStackListener() {
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.backStackEntryCount == 0) {
+                binding.podcastRecyclerView.visibility = View.VISIBLE
+            }
+        }
     }
 }
