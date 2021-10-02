@@ -7,6 +7,7 @@ import com.raywenderlich.podplay.service.RssFeedService
 import com.raywenderlich.podplay.util.DateUtils
 
 class PodcastRepo(private var feedService: RssFeedService) {
+
     suspend fun getPodcast(feedUrl: String): Podcast? {
         var podcast: Podcast? = null
         val feedResponse = feedService.getFeed(feedUrl)
@@ -38,7 +39,13 @@ class PodcastRepo(private var feedService: RssFeedService) {
         val description = if (rssResponse.description == "")
             rssResponse.summary else rssResponse.description
         // 3
-        return Podcast(feedUrl, rssResponse.title, description, imageUrl,
-            rssResponse.lastUpdated, episodes = rssItemsToEpisodes(items))
+        return Podcast(
+            feedUrl,
+            rssResponse.title,
+            description,
+            imageUrl,
+            rssResponse.lastUpdated,
+            episodes = rssItemsToEpisodes(items)
+        )
     }
 }
