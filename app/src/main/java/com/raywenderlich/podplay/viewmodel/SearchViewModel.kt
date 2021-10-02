@@ -44,4 +44,4 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         }
         // 7
         return emptyList()
-    }
+    }}

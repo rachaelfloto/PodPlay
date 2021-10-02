@@ -61,7 +61,7 @@ class PodcastActivity : AppCompatActivity(), PodcastListAdapterListener {
             val results = searchViewModel.searchPodcasts(term)
             withContext(Dispatchers.Main) {
                 hideProgressBar()
-                databinding.toolbar.title = term
+                binding.toolbar.title = term
                 podcastListAdapter.setSearchData(results)
             }
         }
