@@ -25,7 +25,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class PodcastActivity : AppCompatActivity(), PodcastListAdapter.PodcastListAdapterListener {
+class PodcastActivity : AppCompatActivity(), PodcastListAdapterListener {
 
     private val searchViewModel by viewModels<SearchViewModel>()
     private lateinit var podcastListAdapter: PodcastListAdapter
