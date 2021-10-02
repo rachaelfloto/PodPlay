@@ -25,7 +25,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class PodcastActivity : AppCompatActivity(), PodcastListAdapterListener {
+class PodcastActivity : AppCompatActivity(), PodcastListAdapter.PodcastListAdapterListener {
 
     private val searchViewModel by viewModels<SearchViewModel>()
     private lateinit var podcastListAdapter: PodcastListAdapter
@@ -91,16 +91,16 @@ class PodcastActivity : AppCompatActivity(), PodcastListAdapterListener {
 
     private fun updateControls() {
         binding.podcastRecyclerView.setHasFixedSize(true)
-
         val layoutManager = LinearLayoutManager(this)
-        binding.podcastRecyclerView.layoutManager = layoutManager
-
+        binding.podcastRecyclerView.layoutManager =
+            layoutManager
         val dividerItemDecoration = DividerItemDecoration(
-           binding.podcastRecyclerView.context, layoutManager.orientation)
-       binding.podcastRecyclerView.addItemDecoration(dividerItemDecoration)
+            binding.podcastRecyclerView.context,
+            layoutManager.orientation)
 
+       binding.podcastRecyclerView.addItemDecoration(dividerItemDecoration)
         podcastListAdapter = PodcastListAdapter(null, this, this)
-        binding.podcastRecyclerView.adapter = podcastListAdapter
+       binding.podcastRecyclerView.adapter = podcastListAdapter
     }
 
     override fun onShowDetails(podcastSummaryViewData: PodcastSummaryViewData) {
