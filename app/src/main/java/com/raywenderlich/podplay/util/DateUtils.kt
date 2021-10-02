@@ -4,7 +4,6 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DateUtils {
     object DateUtils {
         fun jsonDateToShortDate(jsonDate: String?): String {
             //1
@@ -22,4 +21,4 @@ class DateUtils {
                     Locale.getDefault())
             // 6
             return outputFormat.format(date)
-        }}}
+        }}
