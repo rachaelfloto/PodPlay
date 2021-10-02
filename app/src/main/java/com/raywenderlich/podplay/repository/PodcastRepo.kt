@@ -15,9 +15,7 @@ class PodcastRepo(private var feedService: RssFeedService) {
         }
         return podcast
     }
-    private fun rssItemsToEpisodes(
-        episodeResponses: List<RssFeedResponse.EpisodeResponse>
-    ): List<Episode> {
+    private fun rssItemsToEpisodes(episodeResponses: List<RssFeedResponse.EpisodeResponse>): List<Episode> {
         return episodeResponses.map {
             Episode(
                 it.guid ?: "",
@@ -30,9 +28,9 @@ class PodcastRepo(private var feedService: RssFeedService) {
             )
         }
     }
+
     private fun rssResponseToPodcast(
-        feedUrl: String, imageUrl: String, rssResponse:
-        RssFeedResponse
+        feedUrl: String, imageUrl: String, rssResponse: RssFeedResponse
     ): Podcast? {
         // 1
         val items = rssResponse.episodes ?: return null
@@ -40,9 +38,7 @@ class PodcastRepo(private var feedService: RssFeedService) {
         val description = if (rssResponse.description == "")
             rssResponse.summary else rssResponse.description
         // 3
-        return Podcast(feedUrl, rssResponse.title, description,
-            imageUrl,
-            rssResponse.lastUpdated, episodes =
-            rssItemsToEpisodes(items))
+        return Podcast(feedUrl, rssResponse.title, description, imageUrl,
+            rssResponse.lastUpdated, episodes = rssItemsToEpisodes(items))
     }
 }
